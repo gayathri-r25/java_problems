@@ -1,0 +1,35 @@
+Remove Duplicates from Sorted Array II
+Instructions
+Given an integer array nums sorted in non-decreasing order, remove duplicates in-place such that each unique element appears at most twice.
+The relative order of elements must be preserved. Since the operation must be in-place, the resulting array is stored in the first part of nums.
+Return k, the number of elements after removing extra duplicates.
+
+Example 1
+Input: nums = [1,1,1,2,2,3]
+Output: 5, nums = [1,1,2,2,3,_]
+Example 2
+Input: nums = [0,0,1,1,1,1,2,3,3]
+Output: 7, nums = [0,0,1,1,2,3,3,_,_]
+------------------------------------------------------------------------------------------------------------------------------------------------
+solution:
+
+import java.util.*;
+
+class Solution {
+    int solve(ArrayList<Integer> nums) {
+        int n = nums.size();
+        if (n <= 2) return n;
+
+        int i = 2;
+
+        for (int j = 2; j < n; j++) {
+
+            if (!nums.get(j).equals(nums.get(i - 2))) {
+                nums.set(i, nums.get(j));
+                i++;
+            }
+        }
+
+        return i;
+    }
+}
