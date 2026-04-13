@@ -1,0 +1,94 @@
+A service lane runs alongside a highway. The lane has different width segments, and each segment is represented by an array width, where width[i] is the width of the lane at position i.
+You are given:
+An integer n → number of segments
+A list width[] → widths of each segment
+A 2D array cases[][] → each query contains two indices i and j
+
+Each query represents a vehicle entering the service lane at index i and exiting at index j.
+Task:
+For each query, determine the maximum size vehicle that can pass through the service lane.
+The vehicle size is determined by the minimum width in the segment from index i to j (inclusive).
+Output:
+Return a list of integers, where each element is the maximum vehicle size for the corresponding query.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+solution:
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+class Result {
+    public static List<Integer> serviceLane(int n, List<List<Integer>> cases, List<Integer> width) {
+    List<Integer> result = new ArrayList<>();
+
+    for (List<Integer> c : cases) {
+        int start = c.get(0);
+        int end = c.get(1);
+
+        int min = width.get(start);
+        for (int i = start; i <= end; i++) {
+            if (width.get(i) < min) {
+                min = width.get(i);
+            }
+        }
+        result.add(min);
+    }
+    return result;
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int n = Integer.parseInt(firstMultipleInput[0]);
+
+        int t = Integer.parseInt(firstMultipleInput[1]);
+
+        String[] widthTemp = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        List<Integer> width = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            int widthItem = Integer.parseInt(widthTemp[i]);
+            width.add(widthItem);
+        }
+
+        List<List<Integer>> cases = new ArrayList<>();
+
+        for (int i = 0; i < t; i++) {
+            String[] casesRowTempItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+            List<Integer> casesRowItems = new ArrayList<>();
+
+            for (int j = 0; j < 2; j++) {
+                int casesItem = Integer.parseInt(casesRowTempItems[j]);
+                casesRowItems.add(casesItem);
+            }
+
+            cases.add(casesRowItems);
+        }
+
+        List<Integer> result = Result.serviceLane(n, cases, width);
+        
+        for (int i = 0; i < result.size(); i++) {
+            bufferedWriter.write(String.valueOf(result.get(i)));
+
+            if (i != result.size() - 1) {
+                bufferedWriter.write("\n");
+            }
+        }
+
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
