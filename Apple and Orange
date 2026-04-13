@@ -1,0 +1,45 @@
+Sam's house is located on a number line between points s and t (inclusive).
+There are two fruit trees:
+An apple tree located at point a
+An orange tree located at point b
+
+When fruits fall from the trees, they land at a certain distance from their tree:
+Each apple falls at a distance given in array apples
+Each orange falls at a distance given in array oranges
+
+A negative distance means the fruit falls to the left, and a positive distance means it falls to the right.
+
+Task:
+Determine how many apples and oranges land on Sam's house (i.e., within the range [s, t]).
+---------------------------------------------------------------------------------------------------------------------------------------------
+Solution:
+
+class Result {
+
+    public static void countApplesAndOranges(int s, int t, int a, int b, List<Integer> apples, List<Integer> oranges) {
+
+    int appleCount = 0;
+    int orangeCount = 0;
+
+    // Count apples
+    for (int d : apples) {
+        int position = a + d;   // where apple falls
+
+        if (position >= s && position <= t) {
+            appleCount++;
+        }
+    }
+
+    // Count oranges
+    for (int d : oranges) {
+        int position = b + d;   // where orange falls
+
+        if (position >= s && position <= t) {
+            orangeCount++;
+        }
+    }
+
+    System.out.println(appleCount);
+    System.out.println(orangeCount);
+}
+}
